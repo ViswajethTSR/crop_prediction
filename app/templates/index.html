@@ -1,35 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Crop Production Prediction</title>
+    <title>Crop Yield Prediction</title>
     <link rel="stylesheet" type="text/css" href="../static/style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Crop Production Prediction</h1>
-        <p>Enter the temperature (in Celsius) to predict crop yield:</p>
-        <form id="prediction-form">
-            <input type="number" id="temperature" placeholder="Temperature (°C)" step="0.01" required>
-            <button type="submit">Predict</button>
-        </form>
-        <p id="prediction-result"></p>
-    </div>
+        <div class="header">
+            <h1>Crop Yield Prediction</h1>
+        </div>
+
+      <div class="form-container">
+            <form id="prediction-form">
+                <label for="temperature">Temperature (°C):</label>
+                <input type="text" id="temperature" name="temperature" required>
+        
+                <label for="precipitation">Precipitation (mm):</label>
+                <input type="text" id="precipitation" name="precipitation" required>
+        
+                <label for="soil_pH">Soil pH:</label>
+                <input type="text" id="soil_pH" name="soil_pH"  required>
+        
+                <label for="sunlight">Sunlight (hours/day):</label>
+                <input type="text" id="sunlight" name="sunlight" required>
+        
+                <label for="crop_variety">Crop Variety:</label>
+                <select id="crop_variety" name="crop_variety" required>
+                    <option value="Wheat">Wheat</option>
+                    <option value="Maize">Maize</option>
+                    <option value="Rice">Rice</option>
+                    <!-- Add more crop varieties as needed -->
+                </select>
+        
+                <label for="pest_disease">Pest/Disease:</label>
+                <select id="pest_disease" name="pest_disease" required>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+        
+                <button type="submit" class="submit-button">Predict Yield</button>
+            </form>
+        </div>
+
+        <div class="result-container">
+            <p class="result-text">Predicted Crop Yield: <span id="predicted-yield">-</span> kg/acre</p>
+        </div>
+        <div class="dialog-overlay" id="dialog">
+            <div class="dialog-box">
+                <h2>Result</h2>
+                <p>Your predicted crop yield is <span id="dialog-predicted-yield">-</span> kg/acre</p>
+                <button onclick="closeDialog()">Close</button>
+            </div>
+        </div>
+    
+        <script>
+            // Function to show the dialog box with the result
+            function showDialog(yield) {
+                document.getElementById("dialog-predicted-yield").textContent = yield;
+                document.getElementById("dialog").style.display = "flex";
+            }
+    
+            // Function to close the dialog box
+            function closeDialog() {
+                document.getElementById("dialog").style.display = "none";
+            }
+        </script>
+    
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#prediction-form').submit(function (event) {
-                event.preventDefault();
-                var temperature = $('#temperature').val();
+        $(document).ready(function() {
+            $('#prediction-form').submit(function(e) {
+                e.preventDefault();
                 $.ajax({
                     type: 'POST',
                     url: '/predict',
-                    data: { temperature: temperature },
-                    success: function (response) {
-                        $('#prediction-result').text('Predicted Crop Yield: ' + response.predicted_yield.toFixed(2) + ' tons/acre');
-                    },
-                    error: function (error) {
-                        $('#prediction-result').text('Invalid input. Please enter a valid temperature.');
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        $('#predicted-yield').text(response.predicted_yield);
                     }
                 });
             });
