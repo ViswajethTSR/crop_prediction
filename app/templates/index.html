@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crop Production Prediction</title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Crop Production Prediction</h1>
+        <p>Enter the temperature (in Celsius) to predict crop yield:</p>
+        <form id="prediction-form">
+            <input type="number" id="temperature" placeholder="Temperature (°C)" step="0.01" required>
+            <button type="submit">Predict</button>
+        </form>
+        <p id="prediction-result"></p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#prediction-form').submit(function (event) {
+                event.preventDefault();
+                var temperature = $('#temperature').val();
+                $.ajax({
+                    type: 'POST',
+                    url: '/predict',
+                    data: { temperature: temperature },
+                    success: function (response) {
+                        $('#prediction-result').text('Predicted Crop Yield: ' + response.predicted_yield.toFixed(2) + ' tons/acre');
+                    },
+                    error: function (error) {
+                        $('#prediction-result').text('Invalid input. Please enter a valid temperature.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

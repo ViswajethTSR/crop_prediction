@@ -1,0 +1,11 @@
+Date,Location,Temperature,Humidity,Rainfall,Crop_Yield
+2023-01-01,Location A,25.3,75,2.1,4.5
+2023-01-02,Location A,24.8,73,0.9,4.6
+2023-01-03,Location A,26.2,77,1.5,4.2
+2023-01-04,Location A,27.1,78,0.7,4.8
+2023-01-05,Location A,25.9,76,1.2,4.4
+2023-01-01,Location B,22.5,68,3.0,3.8
+2023-01-02,Location B,23.3,70,2.5,3.9
+2023-01-03,Location B,22.8,69,2.7,3.7
+2023-01-04,Location B,24.0,72,1.8,3.5
+2023-01-05,Location B,23.6,71,2.2,3.6
