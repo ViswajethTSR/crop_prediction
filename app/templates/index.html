@@ -45,26 +45,6 @@
         <div class="result-container">
             <p class="result-text">Predicted Crop Yield: <span id="predicted-yield">-</span> kg/acre</p>
         </div>
-        <div class="dialog-overlay" id="dialog">
-            <div class="dialog-box">
-                <h2>Result</h2>
-                <p>Your predicted crop yield is <span id="dialog-predicted-yield">-</span> kg/acre</p>
-                <button onclick="closeDialog()">Close</button>
-            </div>
-        </div>
-    
-        <script>
-            // Function to show the dialog box with the result
-            function showDialog(yield) {
-                document.getElementById("dialog-predicted-yield").textContent = yield;
-                document.getElementById("dialog").style.display = "flex";
-            }
-    
-            // Function to close the dialog box
-            function closeDialog() {
-                document.getElementById("dialog").style.display = "none";
-            }
-        </script>
     
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
